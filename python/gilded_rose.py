@@ -62,8 +62,6 @@ class AgedBrie(SalesItem):
         - Quality increases by 2 when the sell_in value is expired
         - Quality is never more than 50
     """
-    def __init__(self, item: Item):
-        super().__init__(item)
 
     def update_quality(self):
         self._decrease_sell_in()
@@ -79,9 +77,6 @@ class BackstagePasses(SalesItem):
         - Quality drops to 0 after the concert
         - Quality is never more than 50
     """
-
-    def __init__(self, item: Item):
-        super().__init__(item)
 
     def update_quality(self):
         self._decrease_sell_in()
