@@ -6,10 +6,6 @@ class ItemTypes:
     SULFURAS = "Sulfuras, Hand of Ragnaros"
     CONJURED = "Conjured Mana Cake"
 
-MAX_ITEM_QUALITY = 50
-MIN_ITEM_QUALITY = 0
-
-
 class Item:
     def __init__(self, name, sell_in, quality):
         self.name = name
@@ -26,18 +22,20 @@ class SalesItem:
         - Quality is never negative
     """
     STANDARD_DEGRADATION_RATE = 1
+    MAX_ITEM_QUALITY = 50
+    MIN_ITEM_QUALITY = 0
 
     def __init__(self, item: Item, degradation_multiplier=1):
         self.item = item
         self.degradation_rate = degradation_multiplier * self.STANDARD_DEGRADATION_RATE
-        if self.item.name != ItemTypes.SULFURAS and self.item.quality >= MAX_ITEM_QUALITY:
-            self.item.quality = MAX_ITEM_QUALITY
+        if self.item.name != ItemTypes.SULFURAS and self.item.quality >= self.MAX_ITEM_QUALITY:
+            self.item.quality = self.MAX_ITEM_QUALITY
 
     def _below_max_quality(self):
-        return self.item.quality < MAX_ITEM_QUALITY
+        return self.item.quality < self.MAX_ITEM_QUALITY
 
     def _above_min_quality(self):
-        return self.item.quality > MIN_ITEM_QUALITY
+        return self.item.quality > self.MIN_ITEM_QUALITY
 
     def _decrease_quality(self):
         self.item.quality -= self.degradation_rate
