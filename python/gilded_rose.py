@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+from enum import Enum
 
-class ItemTypes:
+class ItemTypes(Enum):
     AGED_BRIE = "Aged Brie"
     BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert"
     SULFURAS = "Sulfuras, Hand of Ragnaros"
@@ -77,15 +78,16 @@ class BackstagePasses(SalesItem):
         - Quality drops to 0 after the concert
         - Quality is never more than 50
     """
+    TEN_DAYS = 10
+    FIVE_DAYS = 5
 
     def update_quality(self):
         self._decrease_sell_in()
         if self._below_max_quality():
             self._increase_quality()
-            # could pull these two expiry date numbers out to class variables
-            if self.item.sell_in < 10 and self._below_max_quality():
+            if self.item.sell_in < self.TEN_DAYS and self._below_max_quality():
                 self._increase_quality()
-            if self.item.sell_in < 5 and self._below_max_quality():
+            if self.item.sell_in < self.FIVE_DAYS and self._below_max_quality():
                 self._increase_quality()
         if self._is_expired():
             self.item.quality = 0
@@ -112,13 +114,13 @@ class Conjured(SalesItem):
 
 def _get_item_wrapper(item: Item):
     match item.name:
-        case ItemTypes.AGED_BRIE:
+        case ItemTypes.AGED_BRIE.value:
             return AgedBrie(item)
-        case ItemTypes.BACKSTAGE_PASSES:
+        case ItemTypes.BACKSTAGE_PASSES.value:
             return BackstagePasses(item)
-        case ItemTypes.SULFURAS:
+        case ItemTypes.SULFURAS.value:
             return Sulfuras(item)
-        case ItemTypes.CONJURED:
+        case ItemTypes.CONJURED.value:
             return Conjured(item)
         case _:
             return SalesItem(item)
