@@ -2,7 +2,7 @@
 import unittest
 
 from gilded_rose import Item, GildedRose
-from python.gilded_rose import AGED_BRIE, BACKSTAGE_PASSES, CONJURED, SULFURAS
+from gilded_rose import AGED_BRIE, BACKSTAGE_PASSES, CONJURED, SULFURAS
 
 
 class GildedRoseTest(unittest.TestCase):
