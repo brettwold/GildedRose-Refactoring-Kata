@@ -6,6 +6,8 @@ class ItemTypes(Enum):
     BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert"
     SULFURAS = "Sulfuras, Hand of Ragnaros"
     CONJURED = "Conjured Mana Cake"
+    def __get__(self, instance, owner):
+        return self.value
 
 class Item:
     def __init__(self, name, sell_in, quality):
@@ -114,13 +116,13 @@ class Conjured(SalesItem):
 
 def _get_item_wrapper(item: Item):
     match item.name:
-        case ItemTypes.AGED_BRIE.value:
+        case ItemTypes.AGED_BRIE:
             return AgedBrie(item)
-        case ItemTypes.BACKSTAGE_PASSES.value:
+        case ItemTypes.BACKSTAGE_PASSES:
             return BackstagePasses(item)
-        case ItemTypes.SULFURAS.value:
+        case ItemTypes.SULFURAS:
             return Sulfuras(item)
-        case ItemTypes.CONJURED.value:
+        case ItemTypes.CONJURED:
             return Conjured(item)
         case _:
             return SalesItem(item)
