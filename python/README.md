@@ -2,12 +2,19 @@
 
 For exercise instructions see [top level README](../README.md)
 
-Suggestion: create a python virtual environment for this project. See the [documentation](https://docs.python.org/3/library/venv.html)
+Package dependencies are managed with uv. To install uv, run `brew install uv` on a mac and then use it to install 
+python by running `uv install python 3.12`.
+
+## Install the dependencies
+
+```
+uv sync
+```
 
 ## Run the unit tests from the Command-Line
 
 ```
-python test_gilded_rose.py
+uv run test_gilded_rose.py
 ```
 
 ## Run the TextTest fixture from the Command-Line
@@ -15,7 +22,7 @@ python test_gilded_rose.py
 For e.g. 10 days:
 
 ```
-python texttest_fixture.py 10
+uv run texttest_fixture.py 10
 ```
 
 You should make sure the command shown above works when you execute it in a terminal before trying to use TextTest (see below).
