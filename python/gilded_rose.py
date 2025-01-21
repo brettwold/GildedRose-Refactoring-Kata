@@ -1,9 +1,10 @@
 # -*- coding: utf-8 -*-
 
-AGED_BRIE = "Aged Brie"
-BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert"
-SULFURAS = "Sulfuras, Hand of Ragnaros"
-CONJURED = "Conjured Mana Cake"
+class ItemTypes:
+    AGED_BRIE = "Aged Brie"
+    BACKSTAGE_PASSES = "Backstage passes to a TAFKAL80ETC concert"
+    SULFURAS = "Sulfuras, Hand of Ragnaros"
+    CONJURED = "Conjured Mana Cake"
 
 MAX_ITEM_QUALITY = 50
 MIN_ITEM_QUALITY = 0
@@ -29,7 +30,7 @@ class SalesItem:
     def __init__(self, item: Item, degradation_multiplier=1):
         self.item = item
         self.degradation_rate = degradation_multiplier * self.STANDARD_DEGRADATION_RATE
-        if self.item.name != SULFURAS and self.item.quality >= MAX_ITEM_QUALITY:
+        if self.item.name != ItemTypes.SULFURAS and self.item.quality >= MAX_ITEM_QUALITY:
             self.item.quality = MAX_ITEM_QUALITY
 
     def _below_max_quality(self):
@@ -117,16 +118,17 @@ class Conjured(SalesItem):
 
 
 def _get_item_wrapper(item: Item):
-    if item.name == AGED_BRIE:
-        return AgedBrie(item)
-    elif item.name == BACKSTAGE_PASSES:
-        return BackstagePasses(item)
-    elif item.name == SULFURAS:
-        return Sulfuras(item)
-    elif item.name == CONJURED:
-        return Conjured(item)
-    return SalesItem(item)
-
+    match item.name:
+        case ItemTypes.AGED_BRIE:
+            return AgedBrie(item)
+        case ItemTypes.BACKSTAGE_PASSES:
+            return BackstagePasses(item)
+        case ItemTypes.SULFURAS:
+            return Sulfuras(item)
+        case ItemTypes.CONJURED:
+            return Conjured(item)
+        case _:
+            return SalesItem(item)
 
 class GildedRose(object):
     """ Gilded Rose class

@@ -2,7 +2,7 @@
 import unittest
 
 from gilded_rose import Item, GildedRose
-from gilded_rose import AGED_BRIE, BACKSTAGE_PASSES, CONJURED, SULFURAS
+from gilded_rose import ItemTypes
 
 
 class GildedRoseTest(unittest.TestCase):
@@ -53,107 +53,107 @@ class GildedRoseTest(unittest.TestCase):
 
     # Brie tests
     def test_quality_increases_for_brie(self):
-        items = [Item(AGED_BRIE, 10, 10)]
+        items = [Item(ItemTypes.AGED_BRIE, 10, 10)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(11, items[0].quality)
 
     def test_sell_in_reduces_for_brie(self):
-        items = [Item(AGED_BRIE, 10, 50)]
+        items = [Item(ItemTypes.AGED_BRIE, 10, 50)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(9, items[0].sell_in)
 
     def test_quality_increases_twice_as_fast_for_aged_brie_past_sell_by(self):
-        items = [Item(AGED_BRIE, 0, 10)]
+        items = [Item(ItemTypes.AGED_BRIE, 0, 10)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(12, items[0].quality)
 
     def test_quality_never_more_than_50_for_brie(self):
-        items = [Item(AGED_BRIE, 0, 50)]
+        items = [Item(ItemTypes.AGED_BRIE, 0, 50)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(50, items[0].quality)
 
     # Backstage passes tests
     def test_quality_increases_for_backstage_passes(self):
-        items = [Item(BACKSTAGE_PASSES, 11, 10)]
+        items = [Item(ItemTypes.BACKSTAGE_PASSES, 11, 10)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(11, items[0].quality)
 
     def test_quality_increases_twice_as_fast_for_backstage_passes_at_10_days(self):
-        items = [Item(BACKSTAGE_PASSES, 10, 25)]
+        items = [Item(ItemTypes.BACKSTAGE_PASSES, 10, 25)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(27, items[0].quality)
 
     def test_quality_increases_by_three_for_backstage_passes_at_5_days(self):
-        items = [Item(BACKSTAGE_PASSES, 5, 10)]
+        items = [Item(ItemTypes.BACKSTAGE_PASSES, 5, 10)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(13, items[0].quality)
 
     def test_quality_drops_to_zero_after_concert(self):
-        items = [Item(BACKSTAGE_PASSES, 0, 10)]
+        items = [Item(ItemTypes.BACKSTAGE_PASSES, 0, 10)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(0, items[0].quality)
 
     def test_quality_never_more_than_50_for_backstage_passes(self):
-        items = [Item(BACKSTAGE_PASSES, 10, 50)]
+        items = [Item(ItemTypes.BACKSTAGE_PASSES, 10, 50)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(50, items[0].quality)
 
     def test_sell_in_reduces_for_backstage_passes(self):
-        items = [Item(BACKSTAGE_PASSES, 10, 50)]
+        items = [Item(ItemTypes.BACKSTAGE_PASSES, 10, 50)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(9, items[0].sell_in)
 
     # Conjured tests
     def test_sell_in_reduces_for_conjured_items(self):
-        items = [Item(CONJURED, 10, 10)]
+        items = [Item(ItemTypes.CONJURED, 10, 10)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(9, items[0].sell_in)
 
     def test_conjured_items_degrade_twice_as_fast(self):
-        items = [Item(CONJURED, 3, 6)]
+        items = [Item(ItemTypes.CONJURED, 3, 6)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(4, items[0].quality)
 
     def test_quality_never_negative_for_conjured_items(self):
-        items = [Item(CONJURED, 10, 0)]
+        items = [Item(ItemTypes.CONJURED, 10, 0)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(0, items[0].quality)
 
     def test_quality_reduces_twice_as_fast_after_sell_by_for_conjured_items(self):
-        items = [Item(CONJURED, 0, 10)]
+        items = [Item(ItemTypes.CONJURED, 0, 10)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(6, items[0].quality)
 
     # Sulfuras tests
     def test_sulfuras_never_changes(self):
-        items = [Item(SULFURAS, 10, 80)]
+        items = [Item(ItemTypes.SULFURAS, 10, 80)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(80, items[0].quality)
         self.assertEqual(10, items[0].sell_in)
 
     def test_sulfuras_always_quality_80(self):
-        items = [Item(SULFURAS, 10, 50)]
+        items = [Item(ItemTypes.SULFURAS, 10, 50)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(80, items[0].quality)
 
     def test_sulfuras_sell_in_never_changes(self):
-        items = [Item(SULFURAS, 10, 80)]
+        items = [Item(ItemTypes.SULFURAS, 10, 80)]
         gilded_rose = GildedRose(items)
         gilded_rose.update_quality()
         self.assertEqual(10, items[0].sell_in)
