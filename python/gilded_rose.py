@@ -113,20 +113,6 @@ class Conjured(SalesItem):
         # This implementation assumes the latter
         super().__init__(item, degradation_multiplier=2)
 
-
-def _get_item_wrapper(item: Item):
-    match item.name:
-        case ItemTypes.AGED_BRIE:
-            return AgedBrie(item)
-        case ItemTypes.BACKSTAGE_PASSES:
-            return BackstagePasses(item)
-        case ItemTypes.SULFURAS:
-            return Sulfuras(item)
-        case ItemTypes.CONJURED:
-            return Conjured(item)
-        case _:
-            return SalesItem(item)
-
 class GildedRose(object):
     """ Gilded Rose class
 
@@ -140,4 +126,17 @@ class GildedRose(object):
 
     def update_quality(self):
         for item in self.items:
-            _get_item_wrapper(item).update_quality()
+            self._get_item_wrapper(item).update_quality()
+
+    def _get_item_wrapper(self, item: Item):
+        match item.name:
+            case ItemTypes.AGED_BRIE:
+                return AgedBrie(item)
+            case ItemTypes.BACKSTAGE_PASSES:
+                return BackstagePasses(item)
+            case ItemTypes.SULFURAS:
+                return Sulfuras(item)
+            case ItemTypes.CONJURED:
+                return Conjured(item)
+            case _:
+                return SalesItem(item)
