@@ -1,0 +1,9 @@
+[project]
+name = "guilded-rose"
+version = "0.1.0"
+description = "Guilded Rose Refactoring Kata"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "pytest>=8.3.4",
+]
